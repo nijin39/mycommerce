@@ -9,7 +9,12 @@
             "UnauthRoleName": "amplify-mycommerce-dev-51841-unauthRole",
             "StackName": "amplify-mycommerce-dev-51841",
             "StackId": "arn:aws:cloudformation:ap-northeast-2:256010096758:stack/amplify-mycommerce-dev-51841/24078020-48a0-11ea-8f48-0a8876b4c718",
-            "AmplifyAppId": "d3l3sbwtnca3yr"
+            "AmplifyAppId": "dq5ma9ma07j0c"
+        },
+        "categories": {
+            "auth": {
+                "mycommerce28b05c10": {}
+            }
         }
     }
 }

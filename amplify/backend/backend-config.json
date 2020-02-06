@@ -1,1 +1,10 @@
-{}
+{
+	"auth": {
+		"mycommerce28b05c10": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}
