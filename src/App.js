@@ -5,14 +5,13 @@ import { withAuthenticator } from 'aws-amplify-react';
 
 Amplify.configure(awsconfig);
 
-const readProduct = `query lisProducts{
-  products {
-    items{
-      __typename
+const readProduct = `query listTodos {
+	listTodos {
+    items {
       id
       name
     }
-  }
+  } 
 }`;
 
 class App extends Component {
@@ -21,23 +20,20 @@ class App extends Component {
     super(props);
     this.state = {
       id: "",
-      name: ""
+      products: []
     };
   }
 
   async componentDidMount() {
     const products = await API.graphql(graphqlOperation(readProduct));
-    this.setState({ products: products.data.lisProducts.items });
+    this.setState({ "products": products.data.listTodos.items  });
   }
 
   render() {
-    const data = [].concat(this.state.products)
+    const datas= [].concat(this.state.products)
       .map((item, i) =>
         <div className="alert alert-primary alert-dismissible show" role="alert">
-        <span key={item.i}>{item.name}</span>
-        <button key={item.i} type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.handleDelete.bind(this, item.id)}>
-          <span aria-hidden="true">&times;</span>
-        </button>
+        {item.name}
       </div>
       )
       
@@ -49,7 +45,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        {data}
+        "ABC"
+        {datas}
       </div>
     );
   }
