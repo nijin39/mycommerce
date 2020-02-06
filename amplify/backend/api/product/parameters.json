@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "product",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authmycommerce28b05c10",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

@@ -6,5 +6,29 @@
 			"dependsOn": [],
 			"customAuth": false
 		}
+	},
+	"api": {
+		"product": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "AMAZON_COGNITO_USER_POOLS",
+						"userPoolConfig": {
+							"userPoolId": "authmycommerce28b05c10"
+						}
+					}
+				}
+			}
+		}
+	},
+	"function": {
+		"listProduct": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
+		}
 	}
 }

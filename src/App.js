@@ -1,12 +1,46 @@
 import React, { Component } from 'react';
-import Amplify from 'aws-amplify';
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 
 Amplify.configure(awsconfig);
 
+const readProduct = `query lisProducts{
+  products {
+    items{
+      __typename
+      id
+      name
+    }
+  }
+}`;
+
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: "",
+      name: ""
+    };
+  }
+
+  async componentDidMount() {
+    const products = await API.graphql(graphqlOperation(readProduct));
+    this.setState({ products: products.data.lisProducts.items });
+  }
+
   render() {
+    const data = [].concat(this.state.products)
+      .map((item, i) =>
+        <div className="alert alert-primary alert-dismissible show" role="alert">
+        <span key={item.i}>{item.name}</span>
+        <button key={item.i} type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.handleDelete.bind(this, item.id)}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      )
+      
     return (
       <div className="App">
         <header className="App-header">
@@ -24,8 +58,7 @@ const signUpConfig = {
   header: 'My Customized Sign Up',
   hideAllDefaults: true,
   defaultCountryCode: '1',
-  signUpFields: [
-    {
+  signUpFields: [{
       label: 'My user name',
       key: 'username',
       required: true,
@@ -55,35 +88,10 @@ const signUpConfig = {
     }
   ]
 };
+
 const usernameAttributes = 'My user name';
 
 export default withAuthenticator(App, {
   signUpConfig,
   usernameAttributes
 });
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
